@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import EditRecipeForm from "./EditRecipeForm";
 import ConfirmationModal from "./ConfirmationModal";
-import { X } from "react-feather";
+import { X, Edit2 as Edit } from "react-feather";
 
 const RecipeFull = ({ selectedRecipe, handleUnselectRecipe, onUpdateForm, handleUpdateRecipe, handleDeleteRecipe }) => {
   const [editing, setEditing] = useState(false);
-  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const [showConfirmationModal, setShowConfirmationModel] = useState(false);
 
   const handleCancel = () => {
     setEditing(false);
@@ -16,7 +16,7 @@ const RecipeFull = ({ selectedRecipe, handleUnselectRecipe, onUpdateForm, handle
       <div className='recipe-details'>
         <ConfirmationModal
           message="Are you sure? Once it's gone, it's gone."
-          onCancel={() => setShowConfirmationModal(false)}
+          onCancel={() => setShowConfirmationModel(false)}
           onConfirm={() => handleDeleteRecipe(selectedRecipe.id)}
         />
       </div>
@@ -28,8 +28,10 @@ const RecipeFull = ({ selectedRecipe, handleUnselectRecipe, onUpdateForm, handle
         <EditRecipeForm
           selectedRecipe={selectedRecipe}
           onUpdateForm={onUpdateForm}
+          handleDeleteRecipe={handleDeleteRecipe}
           handleCancel={handleCancel}
           handleUpdateRecipe={handleUpdateRecipe}
+          showConfirmationModal={showConfirmationModal}
         />
       ) : (
         <article>
@@ -40,12 +42,13 @@ const RecipeFull = ({ selectedRecipe, handleUnselectRecipe, onUpdateForm, handle
             <h2>{selectedRecipe.title}</h2>
             <div className='button-container'>
               <button className='edit-button' onClick={() => setEditing(true)}>
+                <Edit />
                 Edit
               </button>
               <button className='cancel-button' onClick={() => handleUnselectRecipe(selectedRecipe)}>
                 <X /> Close
               </button>
-              <button className='delete-button' onClick={() => setShowConfirmationModal(true)}>
+              <button className='delete-button' onClick={() => setShowConfirmationModel(true)}>
                 Delete
               </button>
             </div>
